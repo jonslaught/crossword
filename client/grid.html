@@ -3,15 +3,24 @@
   {{#each rows}}
     <tr>
       {{#each this}}
-      {{#if block}}
-      <td class="white">
-        <input type="text" class="guess" value="{{#if answer}}{{ answer }}{{/if}}">
-      </td>
-      {{else}}
-      <td class="black"></td>
-      {{/if}}
+        {{>block}}
       {{/each}}
     </tr>
   {{/each}}
   </table>
+</template>
+
+<template name="block">
+{{#if block}}
+  <td class="white block">
+    {{#with clue}}
+      <div class="clue">{{ this }}</div>
+    {{/with}}
+    <div class="guess">{{#if answer}}{{ answer }}{{/if}}</div>
+    <div class="input">{{answer}}</div>
+    <div class="target"></div>
+  </td>
+{{else}}
+  <td class="black"></td>
+{{/if}}
 </template>

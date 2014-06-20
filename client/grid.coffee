@@ -7,3 +7,9 @@ Deps.autorun ->
 
 Template.grid.rows = ->
   currentPuzzle()?.rows
+
+Template.grid.events
+  'click .target': (event, template) ->
+    $('.input').hide()
+    t = event.target
+    $(t).closest('.block').find('.input').show()
