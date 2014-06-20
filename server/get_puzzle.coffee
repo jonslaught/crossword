@@ -10,10 +10,10 @@ createGrid = (puzzle) ->
   width = meta.width
 
   i = 0
-  for x in [0...width]
-    rows[x] = []
-    for y in [0...height]
-      rows[x][y] = {
+  for y in [0...height]
+    rows[y] = []
+    for x in [0...width]
+      rows[y][x] = {
         block: data.layout[i] == 1
         answer: data.answers[i]
         index: i
@@ -43,6 +43,8 @@ createGrid = (puzzle) ->
   return Puzzles.insert
     coordinates: coordinates
     rows: rows
+    height: height
+    width: width
 
 Meteor.startup ->
   Puzzles.remove({})

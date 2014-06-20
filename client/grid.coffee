@@ -16,23 +16,42 @@ Template.grid.events
     Session.set('selectedBlock', @)
 
 Template.grid.created = ->
-  log 'rendering...'
-  $(document).keyup (event) ->
-    log 'keydown', event.keyCode
+  $(document).keydown (event) ->
     b = Session.get('selectedBlock')
     i = b.index
-    c = currentPuzzle().coordinates
+    p = currentPuzzle()
+    c = p.coordinates
     x = c[i].x
     y = c[i].y
 
-    switch event.which
-      when 37 then x -= 1 # LEFT
-      when 38 then y -= 1 # UP
-      when 39 then x += 1 # RIGHT
-      when 40 then y += 1 # DOWN
+    left = -> x -= 1
+    up = -> y -= 1
+    right = -> x += 1
+    down = -> y += 1
 
-    r = currentPuzzle().rows
-    log x, y
-    b = r[x][y]
+
+    move = switch event.which
+      when 37 then left
+      when 38 then up
+      when 39 then right
+      when 40 then down
+
+
+    # Move to the next open spot, if there is one
+    for i in [1..20] #hacky but it works :/
+      
+      move()
+      r = currentPuzzle().rows
+      b = r[y][x]
+      if b.block
+        break
+
+      # Reset bounds if passed
+      x = Math.max(0, x)
+      x = Math.min(x, p.width - 1)
+      y = Math.max(0, y)
+      y = Math.min(y, p.height - 1)
 
     Session.set('selectedBlock', b)
+    event.preventDefault()
+    return false
