@@ -17,7 +17,7 @@
       <div class="clue">{{ this }}</div>
     {{/with}}
     <div class="guess">{{#if answer}}{{ answer }}{{/if}}</div>
-    <div class="input">{{answer}}</div>
+    <div class="input {{#if selected}}shown{{/if}}">{{answer}}</div>
     <div class="target"></div>
   </td>
 {{else}}

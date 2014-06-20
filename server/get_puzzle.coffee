@@ -41,6 +41,7 @@ createGrid = (puzzle) ->
 
 
   return Puzzles.insert
+    coordinates: coordinates
     rows: rows
 
 Meteor.startup ->
