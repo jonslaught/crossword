@@ -1,0 +1,17 @@
+<template name="grid">
+  <table id="grid">
+  {{#each rows}}
+    <tr>
+      {{#each this}}
+      {{#if block}}
+      <td class="white">
+        <input type="text" class="guess" value="{{#if answer}}{{ answer }}{{/if}}">
+      </td>
+      {{else}}
+      <td class="black"></td>
+      {{/if}}
+      {{/each}}
+    </tr>
+  {{/each}}
+  </table>
+</template>

@@ -1,0 +1,1 @@
+@Puzzles = new Meteor.Collection("puzzles")
