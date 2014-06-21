@@ -14,7 +14,7 @@ createGrid = (puzzle) ->
     rows[y] = []
     for x in [0...width]
       rows[y][x] = {
-        block: data.layout[i] == 1
+        white: data.layout[i] == 1
         answer: data.answers[i]
         index: i
         x: x
@@ -37,12 +37,11 @@ createGrid = (puzzle) ->
 
   for clue in clues
     c = coordinates[clue.clueStart]
-    rows[c.x][c.y].clue = clue.clueNum 
-
+    rows[c.y][c.x].clue = clue.clueNum 
 
   return Puzzles.insert
     coordinates: coordinates
-    rows: rows
+    grid: rows
     height: height
     width: width
 
