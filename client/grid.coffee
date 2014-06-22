@@ -10,12 +10,13 @@ findBlock = (b) -> $("[data-block-index=#{ b.index }]")
 Template.grid.created = ->
   p = @data
 
+  # Keep the input box in sync with the selected block
   Deps.autorun ->
     if b = Session.get('selectedBlock')
-      td = findBlock(b)
-      $('#input').detach().appendTo(td)    
+      $('#input').detach().appendTo(findBlock(b))    
       $('#input').text(b.answer)
 
+  # Detect key presses, i.e. arrows
   $(document).keydown (event) ->
 
     move = switch event.which
