@@ -1,8 +1,11 @@
 @square: 40px;
 @text-size: 24px;
-@input-ratio: 1.5;
+@input-ratio: 1;
 @input-border: 10px;
 @face-size: 50px;
+@clue-height: 12px;
+
+@active-color: #279cff;
 
 .rounded-corners (@radius: 5px) {
   -webkit-border-radius: @radius;
@@ -27,11 +30,12 @@
     height: @square * @input-ratio;
     left: @square * (1-@input-ratio)/2;
     top: @square * (1-@input-ratio)/2;
-    line-height: @square * @input-ratio;
+    //line-height: @square * @input-ratio;
+    line-height: @text-size;
 
-    background-color: lightblue;
-    border: 1px solid black;
-
+    background-color: @active-color;
+    color: white;
+    padding-top: @clue-height;
     z-index: 100;
   }
 
@@ -46,7 +50,7 @@
     padding: 0px;
     width: @square;
     height: @square;
-    padding-top: 12px;
+    padding-top: @clue-height;
     line-height: @text-size;
   }
 
@@ -57,7 +61,7 @@
   }
 
   .clue {
-    font-size: 12px;
+    font-size: @clue-height;
     position: absolute;
     margin: 1px;
   }

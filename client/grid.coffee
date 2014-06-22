@@ -17,8 +17,7 @@ Template.block.events
   ,
     sort:
       time: -1
-
-
+      
 @moveToNext = (direction, jumpOverBlacks, reverse) ->
 
   jumpOverBlacks ?= true
