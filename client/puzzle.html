@@ -20,7 +20,8 @@
 
 <template name="currentClue">
   <div class="well">
-    Clue: {{clue}}
+    <b>{{clue.number}}{{clue.direction}}</b>
+    {{clue.text}}
   </div>
 </template>
 
@@ -31,18 +32,14 @@
       <th class="heading" colspan="2">Across</th>
     </tr>
     {{#each cluesAcross}}
-      <tr>
-        <td class="number">{{ number }}</td><td class="text">{{{ text }}}</td>
-      </tr>
+      {{> clue}}
     {{/each}}
 
     <tr>
       <th class="heading" colspan="2">Down</th>
     </tr>
     {{#each cluesDown}}
-      <tr>
-        <td class="number">{{ number }}</td><td class="text">{{{ text }}}</td>
-      </tr>
+      {{>clue}}
     {{/each}}
 
   </table>
@@ -50,9 +47,8 @@
 
 </template>
 
-<template name="clueBox">
-    <li class="list-group-item">
-      <span class="badge">14</span>
-      <b>{{ number }} </b> {{{ text }}}
-    </li>
+<template name="clue">
+  <tr class="clue {{#if selected}}selected{{/if}}">
+    <td class="number">{{ number }}</td><td class="text">{{{ text }}}</td>
+  </tr>
 </template>
