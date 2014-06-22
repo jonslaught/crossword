@@ -27,11 +27,20 @@ class @Puzzle
       index = xOrIndex
       return @block(@coordinates[index].x, @coordinates[index].y)
 
+  # Client only
+
   currentBlock: ->
     @block(Session.get('currentBlockIndex'))
 
   currentClue: ->
     Session.get('currentClue')
+
+  makeGuess: (guess) ->
+    Guesses.insert
+      puzzleId: @_id
+      blockIndex: Session.get('currentBlockIndex')
+      guess: guess
+      time: new Date()
 
   @current: ->
     Puzzles.findOne Session.get('currentPuzzleId')

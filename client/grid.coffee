@@ -19,29 +19,40 @@ Template.block.events
       time: -1
 
 
-moveToNext = ->
+@moveToNext = (direction, jumpOverBlacks, reverse) ->
 
-  d = Session.get('currentDirection')
-  if d == ACROSS
-    move = -> x += 1
-  if d == DOWN
-    move = -> y += 1
+  jumpOverBlacks ?= true
+  reverse ?= false
 
   p = Puzzle.current()
   b = p.currentBlock()
 
   [x, y] = [b.x, b.y]
 
+  left = -> x -= 1
+  right = -> x += 1
+  up = -> y -= 1
+  down = -> y += 1
+
+  move = switch direction
+    when 37 then left
+    when 38 then up
+    when 39 then right
+    when 40 then down
+    when ACROSS then (if reverse then left else right)
+    when DOWN then (if reverse then up else down)
+
   loop
     move()
     if x < 0 or y < 0 or x >= p.width or y >= p.height # edge, go back
       Session.set 'currentBlockIndex', b.index
       return false
+    if not p.block(x, y).white and not jumpOverBlacks # black block, stay
+      Session.set 'currentBlockIndex', b.index
+      return false
     if p.block(x, y).white # white block, keep it
       Session.set 'currentBlockIndex', p.block(x, y).index
       return false
-
-
 
 Template.block.guess = ->
   g = getLatestGuess(@index)
@@ -71,38 +82,26 @@ Template.grid.created = ->
   $(document).keydown (event) =>
 
     p = @data
-    b = p.currentBlock()
-
+    d = Session.get('currentDirection')
     key = event.which
 
-    move = switch key
-      when 37 then -> x -= 1
-      when 38 then -> y -= 1
-      when 39 then -> x += 1
-      when 40 then -> y += 1
+    # Arrow keys
+    if 37 <= key <= 40
+      event.preventDefault()
+      return moveToNext(key, true)
 
-    if move
-      [x, y] = [b.x, b.y]
+    # Backspace
+    if key == 8
+      event.preventDefault()
+      p.makeGuess("")
+      return moveToNext(d, false, true)
 
-      loop
-        move()
-        if x < 0 or y < 0 or x >= p.width or y >= p.height # edge, go back
-          Session.set 'currentBlockIndex', b.index
-          return false
-        if p.block(x, y).white # white block, keep it
-          Session.set 'currentBlockIndex', p.block(x, y).index
-          return false
-
+    # Letters
     letter = String.fromCharCode(key)
-
     if letter
 
-      Guesses.insert
-        puzzleId: p._id
-        blockIndex: b.index
-        guess: letter
-        time: new Date()
-
-      moveToNext()
+      event.preventDefault()
+      p.makeGuess(letter)
+      return moveToNext(d, false)
 
     return true
