@@ -10,12 +10,16 @@ Template.block.events
 
 findBlock = (b) -> $("[data-block-index=#{ b.index }]")
 
-Template.block.guess = ->
-  g = Guesses.findOne
+getLatestGuess = (block) ->
+  Guesses.findOne
     puzzleId: Session.get('currentPuzzleId')
-    blockIndex: @index
+    blockIndex: block.index
   ,
-    sort: ['created','desc']
+    sort:
+      time: -1
+
+Template.block.guess = ->
+  g = getLatestGuess(@)
 
 Template.grid.created = ->
   p = @data
@@ -60,15 +64,7 @@ Template.grid.created = ->
         guess: letter
         time: new Date()
 
-      $('#input').hide()
-
-
-
-
-
-
-
     return true
 
 Template.input.guess = ->
-  "A"
+  g = getLatestGuess(Session.get('selectedBlock'))

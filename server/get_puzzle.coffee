@@ -46,5 +46,6 @@ createGrid = (puzzle) ->
     width: width
 
 Meteor.startup ->
+  Guesses.remove({})
   Puzzles.remove({})
   createGrid(wed)
