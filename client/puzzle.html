@@ -1,9 +1,58 @@
 <template name="puzzle">
-  <div id="puzzle">
+  <div id="puzzle" class="container">
   {{#with puzzle}}
-    <div id="grid">
-      {{> grid}}
+    <div id="currentClue">
+      {{> currentClue}}
+    </div>
+
+    <div class="row">
+      <div id="grid" class="col-md-7">
+        {{> grid}}
+      </div>
+
+      <div id="clues" class="col-md-5">
+        {{>clues}}
+      </div>
     </div>
   {{/with}}
   </div>
+</template>
+
+<template name="currentClue">
+  <div class="well">
+    Clue: {{clue}}
+  </div>
+</template>
+
+<template name="clues">
+  <div class="scrollable">
+  <table class="table table-condensed">
+    <tr>
+      <th class="heading" colspan="2">Across</th>
+    </tr>
+    {{#each cluesAcross}}
+      <tr>
+        <td class="number">{{ number }}</td><td class="text">{{{ text }}}</td>
+      </tr>
+    {{/each}}
+
+    <tr>
+      <th class="heading" colspan="2">Down</th>
+    </tr>
+    {{#each cluesDown}}
+      <tr>
+        <td class="number">{{ number }}</td><td class="text">{{{ text }}}</td>
+      </tr>
+    {{/each}}
+
+  </table>
+  </div>
+
+</template>
+
+<template name="clueBox">
+    <li class="list-group-item">
+      <span class="badge">14</span>
+      <b>{{ number }} </b> {{{ text }}}
+    </li>
 </template>

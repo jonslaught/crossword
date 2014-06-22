@@ -1,3 +1,7 @@
+@ACROSS = 'A'
+@DOWN = 'D'
+
+
 @Puzzles = new Meteor.Collection "puzzles",
   transform: (doc) ->
     return new Puzzle(doc)

@@ -1,9 +1,3 @@
-
-Template.puzzle.puzzle = ->
-  p = Puzzles.findOne()
-  Session.set('currentPuzzleId', p?._id)
-  return p
-
 Template.block.events
   'click .target': (event, template) ->
     Session.set('selectedBlock', @)
@@ -20,7 +14,6 @@ Template.block.events
 
 Template.block.guess = ->
   g = getLatestGuess(@)
-
 
 Template.grid.created = ->
   p = @data

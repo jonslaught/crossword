@@ -23,27 +23,28 @@ createGrid = (puzzle) ->
       coordinates[i] = {'x': x, 'y': y}
       i++
 
-  clues = []
+  clue = (c, direction) ->
+    {
+      direction: direction
+      start: c.clueStart
+      end: c.clueEnd
+      number: c.clueNum
+      text: c.value
+    }
 
-  for clue in data.clues.A
-    clue.direction = "A"
-    clue.id = clue.clueNum + clue.direction
-    clues.push(clue)
 
-  for clue in data.clues.D
-    clue.direction = "A"
-    clue.id = clue.clueNum + clue.direction
-    clues.push(clue)
+  clues = (clue(c, ACROSS) for c in data.clues.A).concat (clue(c, DOWN) for c in data.clues.D)
 
   for clue in clues
-    c = coordinates[clue.clueStart]
-    rows[c.y][c.x].clue = clue.clueNum 
+    c = coordinates[clue.start]
+    rows[c.y][c.x].clue = clue.number
 
   return Puzzles.insert
     coordinates: coordinates
     grid: rows
     height: height
     width: width
+    clues: clues
 
 Meteor.startup ->
   Guesses.remove({})
