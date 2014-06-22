@@ -1,32 +1,33 @@
 Template.block.events
   'click .target': (event, template) ->
-    Session.set('selectedBlock', @)
+    Session.set('selectedBlockIndex', @index)
 
-@findBlock = (b) -> $("[data-block-index=#{ b.index }]")
+@findBlock = (blockIndex) -> $("[data-block-index=#{ blockIndex }]")
+@findCurrentBlock = -> findBlock(Session.get('selectedBlockIndex'))
 
-@getLatestGuess = (block) ->
+@getLatestGuess = (blockIndex) ->
   Guesses.findOne
     puzzleId: Session.get('currentPuzzleId')
-    blockIndex: block?.index
+    blockIndex: blockIndex
   ,
     sort:
       time: -1
 
 Template.block.guess = ->
-  g = getLatestGuess(@)
+  g = getLatestGuess(@index)
 
 Template.grid.created = ->
-  p = @data
-  b = Session.get('selectedBlock')
 
   # Keep the input box in sync with the selected block
   Deps.autorun =>
-    if b = Session.get('selectedBlock')
-      $('#input').detach().appendTo(findBlock(b))
+      $('#input').detach().appendTo(findCurrentBlock())
       $('#input').show()
 
   # Detect key presses, i.e. arrows
   $(document).keydown (event) =>
+
+    p = @data
+    b = p.currentBlock()
 
     key = event.which
 
@@ -42,10 +43,10 @@ Template.grid.created = ->
       loop
         move()
         if x < 0 or y < 0 or x >= p.width or y >= p.height # edge, go back
-          Session.set 'selectedBlock', b
+          Session.set 'selectedBlockIndex', b.index
           return false
         if p.block(x, y).white # white block, keep it
-          Session.set 'selectedBlock', p.block(x, y)
+          Session.set 'selectedBlockIndex', p.block(x, y).index
           return false
 
     letter = String.fromCharCode(key)

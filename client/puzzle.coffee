@@ -4,11 +4,11 @@ Template.puzzle.puzzle = ->
   return p
 
 Template.clues.cluesAcross = ->
-  p = Puzzles.findOne Session.get('currentPuzzleId')
+  p = Puzzle.current()
   _.where p.clues, {'direction': ACROSS}
 
 Template.clues.cluesDown = ->
-  p = Puzzles.findOne Session.get('currentPuzzleId')
+  p = Puzzle.current()
   _.where p.clues, {'direction': DOWN}
 
 Template.clues.events
@@ -20,4 +20,4 @@ Template.currentClue.clue = ->
 
 Template.clue.selected = ->
   c = Session.get('selectedClue')
-  @number == c.number and @direction == c.direction
+  @number == c?.number and @direction == c?.direction

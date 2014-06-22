@@ -17,12 +17,21 @@ class @Puzzle
     _.extend(@, doc)
 
   block: (xOrIndex, y) ->
+    if not xOrIndex?
+      return
+      
     if y?
       x = xOrIndex
       return @grid[y][x]
     else
       index = xOrIndex
       return @block(@coordinates[index].x, @coordinates[index].y)
+
+  currentBlock: ->
+    @block(Session.get('selectedBlockIndex'))
+
+  @current: ->
+    Puzzles.findOne Session.get('currentPuzzleId')
 
 class @Guess
 

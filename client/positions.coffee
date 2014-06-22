@@ -1,27 +1,23 @@
 
 Template.input.guess = ->
-  g = getLatestGuess(Session.get('selectedBlock'))
+  g = getLatestGuess(Session.get('selectedBlockIndex'))
 
 
 Template.positions.rendered = ->
-  p = @data
-  b = Session.get('selectedBlock')
+  if p = @data
+    Deps.autorun =>
+      trackPosition(p)
 
-  Deps.autorun =>
-    trackPosition(p)
-
-  Deps.autorun =>
-    showPositions(@, p)
+    Deps.autorun =>
+      showPositions(@, p)
 
 @trackPosition = (puzzle) ->
-  if b = Session.get('selectedBlock')
-
     p = Positions.upsert
       puzzleId: puzzle._id
       userId: Meteor.userId()
     ,
       $set:
-        blockIndex: b.index 
+        blockIndex: Session.get('selectedBlockIndex')
 
 @showPositions = (template, puzzle) ->
 
