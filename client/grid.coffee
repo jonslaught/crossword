@@ -13,7 +13,7 @@ findBlock = (b) -> $("[data-block-index=#{ b.index }]")
 getLatestGuess = (block) ->
   Guesses.findOne
     puzzleId: Session.get('currentPuzzleId')
-    blockIndex: block.index
+    blockIndex: block?.index
   ,
     sort:
       time: -1

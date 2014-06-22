@@ -9,3 +9,8 @@ insecure
 preserve-inputs
 coffeescript
 less
+accounts-facebook
+accounts-ui
+service-configuration
+accounts-password
+accounts-google
