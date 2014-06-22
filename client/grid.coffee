@@ -97,10 +97,9 @@ Template.grid.created = ->
       return moveToNext(d, false, true)
 
     # Letters
-    letter = String.fromCharCode(key)
-    if letter
-
+    if 65 <= key <= 90
       event.preventDefault()
+      letter = String.fromCharCode(key)
       p.makeGuess(letter)
       return moveToNext(d, false)
 
