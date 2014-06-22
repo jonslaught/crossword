@@ -8,8 +8,17 @@ Template.grid.events
   'click .target': (event, template) ->
     Session.set('selectedBlock', @)
 
+findBlock = (b) -> $("[data-block-index=#{ b.index }]")
+
 Template.grid.created = ->
   p = @data
+
+  Deps.autorun ->
+    if b = Session.get('selectedBlock')
+      td = findBlock(b)
+      $('.input').detach().appendTo(td)    
+      $('.input').text(b.answer)
+
   $(document).keydown (event) ->
 
     b = Session.get('selectedBlock')
@@ -37,3 +46,4 @@ Template.grid.created = ->
 
     event.preventDefault()
     return false
+
