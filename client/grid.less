@@ -7,7 +7,21 @@
 
   border: 1px solid black;
 
-  td {
+  #input {
+    position: absolute;
+    width: @square * @input-ratio;
+    height: @square * @input-ratio;
+    left: @square * (1-@input-ratio)/2;
+    top: @square * (1-@input-ratio)/2;
+    line-height: @square * @input-ratio;
+
+    background-color: lightblue;
+    border: 1px solid black;
+
+    z-index: 100;
+  }
+
+  .block {
     font-family: sans-serif;
     border: 1px solid #bbb;
     position: relative;
@@ -22,26 +36,7 @@
     line-height: @text-size;
   }
 
-  .input {
-    position: absolute;
-    width: @square * @input-ratio;
-    height: @square * @input-ratio;
-    left: @square * (1-@input-ratio)/2;
-    top: @square * (1-@input-ratio)/2;
-    line-height: @square * @input-ratio;
-
-    background-color: lightblue;
-    border: 1px solid black;
-
-    visibility: hidden;
-    z-index: 100;
-  }
-
-  .input.shown {
-    visibility: visible;
-  }
-
-  .guess, .input {
+  .letter {
     text-align: center;
     font-family: Arial, Helvetica, sans-serif;
     font-size: @text-size;

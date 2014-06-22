@@ -14,17 +14,17 @@
     </tr>
   {{/each}}
   </table>
-  <div class="input shown"></div>
+  <div id="input" class="letter"></div>
 </template>
 
 <template name="block">
 
 {{#if white}}
   <td class="white block" data-block-index="{{ index }}">
-    {{#with clue}}
-      <div class="clue">{{ this }}</div>
-    {{/with}}
-    <div class="guess">{{#if answer}}{{ answer }}{{/if}}</div>
+    <div class="clue">{{ clue }}</div>
+    <div class="guess letter">
+      <span class="answer">{{#if answer}}{{ answer }}{{/if}}</span>
+    </div>
     <div class="target"></div>
   </td>
 {{else}}

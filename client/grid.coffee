@@ -1,9 +1,6 @@
 Template.puzzle.puzzle = ->
   Puzzles.findOne()
 
-Template.block.selected = ->
-  @index == Session.get('selectedBlock')?.index
-
 Template.block.events
   'click .target': (event, template) ->
     Session.set('selectedBlock', @)
@@ -16,13 +13,10 @@ Template.grid.created = ->
   Deps.autorun ->
     if b = Session.get('selectedBlock')
       td = findBlock(b)
-      $('.input').detach().appendTo(td)    
-      $('.input').text(b.answer)
+      $('#input').detach().appendTo(td)    
+      $('#input').text(b.answer)
 
   $(document).keydown (event) ->
-
-    b = Session.get('selectedBlock')
-    [x, y] = [b.x, b.y]
 
     move = switch event.which
       when 37 then -> x -= 1
@@ -31,19 +25,17 @@ Template.grid.created = ->
       when 40 then -> y += 1
 
     if move
-      start = p.block(x, y)
+      
+      b = Session.get('selectedBlock')
+      [x, y] = [b.x, b.y]
 
       loop
         move()
-        if x < 0 or y < 0 or x >= p.width or y >= p.height # edge
-          b = start
-          break
-        if p.block(x, y).white # white block
-          b = p.block(x, y)
-          break
+        if x < 0 or y < 0 or x >= p.width or y >= p.height # edge, go back
+          Session.set 'selectedBlock', b
+          return false
+        if p.block(x, y).white # white block, keep it
+          Session.set 'selectedBlock', p.block(x, y)
+          return false
 
-      Session.set('selectedBlock', b)
-
-    event.preventDefault()
-    return false
-
+    return true
