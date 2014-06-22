@@ -52,7 +52,7 @@
 </template>
 
 <template name="clue">
-  <tr class="clue {{#if selected}}selected{{/if}}">
+  <tr class="clue {{#if selected}}selected{{/if}}" data-clue-id="{{ _id }}">
     <td class="number">{{ number }}</td><td class="text">{{{ text }}}</td>
   </tr>
 </template>

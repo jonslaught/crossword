@@ -24,3 +24,16 @@ Template.currentClue.clue = ->
 Template.clue.selected = ->
   c = Session.get('currentClue')
   @number == c?.number and @direction == c?.direction
+
+@findClue = (clue) -> $("[data-clue-id=#{ clue?._id }]")
+@findCurrentClue = -> findClue(Session.get('currentClue'))
+@visibleInContainer = (elt, container) ->
+  eltRect = $(elt).get(0).getBoundingClientRect()
+  containerRect = $(container).get(0).getBoundingClientRect()
+  eltRect.top >= containerRect.top and eltRect.bottom <= containerRect.bottom
+
+Template.clues.created = ->
+  Deps.autorun =>
+    c = findCurrentClue()
+    if c[0] and not visibleInContainer(c, $('.scrollable'))
+      $('.scrollable').scrollTo(c)

@@ -30,6 +30,7 @@ createGrid = (puzzle) ->
       end: c.clueEnd
       number: c.clueNum
       text: c.value
+      _id: c.clueNum + direction
     }
 
 
