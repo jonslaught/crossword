@@ -1,13 +1,5 @@
-<template name="puzzle">
-  <div id="puzzle">
-  {{#with puzzle}}
-    {{> grid}}
-  {{/with}}
-  </div>
-</template>
-
 <template name="grid">
-  <table id="grid">
+  <table>
   {{#each grid}}
     <tr>
       {{#each this}}
@@ -16,7 +8,7 @@
           {{> block}}
           </td>
         {{else}}
-          <td class="black"></td>
+          <td class="black block"></td>
         {{/if}}
       {{/each}}
     </tr>

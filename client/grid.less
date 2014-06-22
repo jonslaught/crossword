@@ -12,13 +12,14 @@
   border-radius: @radius;
 }
 
-#puzzle {
-  position: relative;
-}
-
 #grid {
 
-  border: 1px solid black;
+  position: relative;
+  display: inline-block;
+
+  table {
+      border: 1px solid black;
+  }
 
   #input {
     position: absolute;
@@ -70,9 +71,9 @@
     background-color: fade(red, 0%);
   }
 
-
   .black {
     background-color: black;
+    border: 1px solid black;
   }
 
 }

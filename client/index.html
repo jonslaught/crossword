@@ -1,15 +1,25 @@
 <head>
   <title>crossword</title>
   <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css">
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
 </head>
 
 <body>
-  {{> header }}
+
+  <nav id="header" class="navbar navbar-default navbar-fixed-top login-popover-left">
+     <div class="container-fluid">
+      <a class="navbar-brand" href="#">Crossword!</a>
+      <ul class="nav navbar-nav">
+        <li><a href="/puzzles">Puzzles</a></li>
+        <li><a href="/groups">Groups</a></li>
+      </ul>
+      <div class="navbar-button">
+        <ul class="nav navbar-nav">
+          <li>{{ loginButtons }}</li>
+        </ul>
+      </div>
+      
+    </nav>
+
   {{> puzzle }}
 </body>
-
-<template name="header">
-  <div id='header'>
-    {{ loginButtons }}
-  </div>
-</template>
