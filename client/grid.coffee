@@ -1,12 +1,5 @@
-
-@currentPuzzle = ->
-  Puzzles.findOne Session.get('currentPuzzleId')
-
-Deps.autorun ->
-  Session.set('currentPuzzleId', Puzzles.findOne()?._id)
-
-Template.grid.rows = ->
-  currentPuzzle()?.grid
+Template.puzzle.puzzle = ->
+  Puzzles.findOne()
 
 Template.block.selected = ->
   @index == Session.get('selectedBlock')?.index
@@ -16,9 +9,10 @@ Template.grid.events
     Session.set('selectedBlock', @)
 
 Template.grid.created = ->
+  p = @data
   $(document).keydown (event) ->
+
     b = Session.get('selectedBlock')
-    p = currentPuzzle()
     [x, y] = [b.x, b.y]
 
     move = switch event.which

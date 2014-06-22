@@ -1,9 +1,15 @@
+<template name="puzzle">
+  {{#with puzzle}}
+    {{> grid}}
+  {{/with}}
+</template>
+
 <template name="grid">
   <table id="grid">
-  {{#each rows}}
+  {{#each grid}}
     <tr>
       {{#each this}}
-        {{>block}}
+        {{> block}}
       {{/each}}
     </tr>
   {{/each}}
