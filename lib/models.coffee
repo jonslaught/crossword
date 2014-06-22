@@ -6,26 +6,21 @@
   transform: (doc) ->
     return new Guess(doc)  
 
+@Positions = new Meteor.Collection "positions"
+
 class @Puzzle
   constructor: (doc) ->
     _.extend(@, doc)
 
-  block: (x, y) ->
+  block: (xOrIndex, y) ->
     if y?
+      x = xOrIndex
       return @grid[y][x]
     else
-      [x, y] = @coordinates[x]
-      return block(x, y)
+      index = xOrIndex
+      return @block(@coordinates[index].x, @coordinates[index].y)
 
 class @Guess
-
-  ###  
-  fields:
-    user: "The user who did the guess"
-    team: "The team they made it for"
-    time: "When the guess"
-    puzzle: "The puzzle it was for"
-  ###
 
   constructor: (doc) ->
     _.extend(@, doc)

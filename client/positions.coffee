@@ -1,0 +1,61 @@
+
+Template.input.guess = ->
+  g = getLatestGuess(Session.get('selectedBlock'))
+
+
+Template.positions.rendered = ->
+  p = @data
+  b = Session.get('selectedBlock')
+
+  Deps.autorun =>
+    trackPosition(p)
+
+  Deps.autorun =>
+    showPositions(@, p)
+
+@trackPosition = (puzzle) ->
+  if b = Session.get('selectedBlock')
+
+    p = Positions.upsert
+      puzzleId: puzzle._id
+      userId: Meteor.userId()
+    ,
+      $set:
+        blockIndex: b.index 
+
+@showPositions = (template, puzzle) ->
+
+  positions = Positions.find
+    puzzleId: puzzle._id
+    userId: 
+        $ne:
+          Meteor.userId()
+  .fetch()
+
+  for p in positions
+    p.block = puzzle.block(p.blockIndex)
+
+  heads = d3.select(template.find('.positions'))
+    .selectAll('.head')
+    .data(positions)
+
+  heads.enter()
+    .append('div')
+    .attr('class','head')
+    .html((d) -> Template.position())
+
+  heads.exit()
+    .remove()
+
+  heads.select('img')
+    .attr 'src', (d) ->
+      if user = Meteor.users.findOne(d.userId)
+        picture = user.profile.picture
+      else
+        picture = 'http://ts2.mm.bing.net/th?q=squirrel&w=50&h=50&c=1&pid=1.7&mkt=en-US&adlt=off&t=1'
+
+  heads.transition().duration(500).ease('cubic-out')
+    .style 'top', (d) -> 
+      return findBlock(d.block).position().top + 'px'
+    .style 'left', (d) -> 
+      return findBlock(d.block).position().left + 'px'

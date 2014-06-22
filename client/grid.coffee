@@ -8,9 +8,9 @@ Template.block.events
   'click .target': (event, template) ->
     Session.set('selectedBlock', @)
 
-findBlock = (b) -> $("[data-block-index=#{ b.index }]")
+@findBlock = (b) -> $("[data-block-index=#{ b.index }]")
 
-getLatestGuess = (block) ->
+@getLatestGuess = (block) ->
   Guesses.findOne
     puzzleId: Session.get('currentPuzzleId')
     blockIndex: block?.index
@@ -21,18 +21,19 @@ getLatestGuess = (block) ->
 Template.block.guess = ->
   g = getLatestGuess(@)
 
+
 Template.grid.created = ->
   p = @data
   b = Session.get('selectedBlock')
 
   # Keep the input box in sync with the selected block
-  Deps.autorun ->
+  Deps.autorun =>
     if b = Session.get('selectedBlock')
       $('#input').detach().appendTo(findBlock(b))
       $('#input').show()
 
   # Detect key presses, i.e. arrows
-  $(document).keydown (event) ->
+  $(document).keydown (event) =>
 
     key = event.which
 
@@ -65,6 +66,3 @@ Template.grid.created = ->
         time: new Date()
 
     return true
-
-Template.input.guess = ->
-  g = getLatestGuess(Session.get('selectedBlock'))

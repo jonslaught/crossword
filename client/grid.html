@@ -1,7 +1,9 @@
 <template name="puzzle">
+  <div id="puzzle">
   {{#with puzzle}}
     {{> grid}}
   {{/with}}
+  </div>
 </template>
 
 <template name="grid">
@@ -21,6 +23,7 @@
   {{/each}}
   </table>
   {{>input}}
+  {{>positions}}
 </template>
 
 <template name="block">

@@ -2,6 +2,19 @@
 @text-size: 24px;
 @input-ratio: 1.5;
 @input-border: 10px;
+@face-size: 50px;
+
+.rounded-corners (@radius: 5px) {
+  -webkit-border-radius: @radius;
+  -moz-border-radius: @radius;
+  -ms-border-radius: @radius;
+  -o-border-radius: @radius;
+  border-radius: @radius;
+}
+
+#puzzle {
+  position: relative;
+}
 
 #grid {
 
@@ -63,6 +76,18 @@
   }
 
 }
+
+.head {
+
+  position: absolute;
+
+  img {
+    width: @face-size;
+    height: @face-size;
+    .rounded-corners(@face-size);
+  }
+}
+
 
 #header, #header * {
   z-index: 2000;
