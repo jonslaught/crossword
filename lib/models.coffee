@@ -19,7 +19,7 @@ class @Puzzle
   block: (xOrIndex, y) ->
     if not xOrIndex?
       return
-      
+
     if y?
       x = xOrIndex
       return @grid[y][x]
@@ -28,7 +28,10 @@ class @Puzzle
       return @block(@coordinates[index].x, @coordinates[index].y)
 
   currentBlock: ->
-    @block(Session.get('selectedBlockIndex'))
+    @block(Session.get('currentBlockIndex'))
+
+  currentClue: ->
+    Session.get('currentClue')
 
   @current: ->
     Puzzles.findOne Session.get('currentPuzzleId')

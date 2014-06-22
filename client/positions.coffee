@@ -1,6 +1,6 @@
 
 Template.input.guess = ->
-  g = getLatestGuess(Session.get('selectedBlockIndex'))
+  g = getLatestGuess(Session.get('currentBlockIndex'))
 
 
 Template.positions.rendered = ->
@@ -17,7 +17,7 @@ Template.positions.rendered = ->
       userId: Meteor.userId()
     ,
       $set:
-        blockIndex: Session.get('selectedBlockIndex')
+        blockIndex: Session.get('currentBlockIndex')
 
 @showPositions = (template, puzzle) ->
 

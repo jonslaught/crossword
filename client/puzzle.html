@@ -20,8 +20,12 @@
 
 <template name="currentClue">
   <div class="well">
+  {{#if clue}}
     <b>{{clue.number}}{{clue.direction}}</b>
-    {{clue.text}}
+    {{{clue.text}}}
+  {{else}}
+    Select a clue
+  {{/if}}
   </div>
 </template>
 

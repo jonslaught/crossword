@@ -1,6 +1,9 @@
+Session.setDefault('currentDirection', ACROSS)
+
 Template.puzzle.puzzle = ->
   p = Puzzles.findOne()
   Session.set('currentPuzzleId', p?._id)
+  Session.set('currentClue', p?.clues[0])
   return p
 
 Template.clues.cluesAcross = ->
@@ -13,11 +16,11 @@ Template.clues.cluesDown = ->
 
 Template.clues.events
   'click .clue': ->
-    Session.set('selectedClue', @)
+    Session.set('currentClue', @)
 
 Template.currentClue.clue = ->
-  Session.get('selectedClue')
+  Session.get('currentClue')
 
 Template.clue.selected = ->
-  c = Session.get('selectedClue')
+  c = Session.get('currentClue')
   @number == c?.number and @direction == c?.direction
