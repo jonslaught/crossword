@@ -4,7 +4,7 @@ Template.puzzle.puzzle = ->
 Template.block.selected = ->
   @index == Session.get('selectedBlock')?.index
 
-Template.grid.events
+Template.block.events
   'click .target': (event, template) ->
     Session.set('selectedBlock', @)
 
