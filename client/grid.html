@@ -9,25 +9,28 @@
   {{#each grid}}
     <tr>
       {{#each this}}
-        {{> block}}
+        {{#if white}}
+          <td class="white block" data-block-index="{{ index }}">
+          {{> block}}
+          </td>
+        {{else}}
+          <td class="black"></td>
+        {{/if}}
       {{/each}}
     </tr>
   {{/each}}
   </table>
-  <div id="input" class="letter"></div>
+  {{>input}}
 </template>
 
 <template name="block">
+  <div class="clue">{{ clue }}</div>
+  <div class="guess letter">
+    {{#if guess}}{{ guess.guess }}{{/if}}
+  </div>
+  <div class="target"></div>
+</template>
 
-{{#if white}}
-  <td class="white block" data-block-index="{{ index }}">
-    <div class="clue">{{ clue }}</div>
-    <div class="guess letter">
-      <span class="answer">{{#if answer}}{{ answer }}{{/if}}</span>
-    </div>
-    <div class="target"></div>
-  </td>
-{{else}}
-  <td class="black"></td>
-{{/if}}
+<template name="input">
+  <div id="input" class="letter">{{guess}}</div>
 </template>
