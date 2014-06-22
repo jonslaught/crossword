@@ -71,12 +71,15 @@ Template.grid.created = ->
       Session.set('currentBlockIndex', c.start)
       Session.set('currentDirection', c.direction)
 
+  ###
   # Change clue with each move
   Deps.autorun =>
     #todo speed this up, and catch stuff that's in between numbers, and zoom to selected clue
+    #also, needs to only change clue if you move out of the current clue
     p = @data
     c = _.where(p.clues, {start: Session.get('currentBlockIndex')})?[0]
     Session.set('currentClue', c)
+  ###
 
   # Detect key presses, i.e. arrows
   $(document).keydown (event) =>
@@ -90,15 +93,21 @@ Template.grid.created = ->
       event.preventDefault()
       return moveToNext(key, true)
 
-    # Backspace
-    if key == 8
+    # Backspace or delete
+    if key == 8 or key == 46
       event.preventDefault()
       p.makeGuess("")
       return moveToNext(d, false, true)
 
+    # Tab, enter
+    if key == 9 or key == 13
+      event.preventDefault()
+      toNextClue()
+      return false
+
     # Letters
     if 65 <= key <= 90
-      event.preventDefault()
+      #event.preventDefault()
       letter = String.fromCharCode(key)
       p.makeGuess(letter)
       return moveToNext(d, false)

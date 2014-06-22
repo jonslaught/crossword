@@ -52,6 +52,6 @@ Template.positions.rendered = ->
 
   heads.transition().duration(500).ease('cubic-out')
     .style 'top', (d) -> 
-      return findBlock(d.block).position().top + 'px'
+      return findBlock(d.block.index).position().top + 'px'
     .style 'left', (d) -> 
-      return findBlock(d.block).position().left + 'px'
+      return findBlock(d.block.index).position().left + 'px'

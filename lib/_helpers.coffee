@@ -1,3 +1,5 @@
+@_ = lodash
+
 @log = (stuff...) ->
   console.log(stuff...)
 

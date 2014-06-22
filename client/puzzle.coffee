@@ -37,3 +37,19 @@ Template.clues.created = ->
     c = findCurrentClue()
     if c[0] and not visibleInContainer(c, $('.scrollable'))
       $('.scrollable').scrollTo(c)
+
+@toNextClue = ->
+  p = Puzzle.current()
+  c = Session.get('currentClue')
+  i = _.findIndex p.clues,
+    number: c.number
+    direction: Session.get('currentDirection')
+  
+  log p.clues[i+1]
+  if p.clues[i+1]?
+    Session.set('currentClue', p.clues[i+1])
+    #Session.set('currentDirection', p.clues[i+1].direction)
+
+Deps.autorun ->
+  log 'current clue', Puzzle.current()?.currentClue()
+  log 'current direction', Session.get('currentDirection')
