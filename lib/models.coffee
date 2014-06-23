@@ -27,8 +27,10 @@ class @Puzzle
       index = xOrIndex
       return @block(@coordinates[index].x, @coordinates[index].y)
 
-  # Client only
+  clue: (id) ->
+    _.findWhere @clues, {_id: id}
 
+  # Client only
   currentBlock: ->
     @block(Session.get('currentBlockIndex'))
 

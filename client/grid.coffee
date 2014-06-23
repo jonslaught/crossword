@@ -58,10 +58,12 @@ Template.block.guess = ->
 
 Template.grid.created = ->
 
+  ###
   # Keep the input box in sync with the selected block
   Deps.autorun =>
       $('#input').detach().appendTo(findCurrentBlock())
       $('#input').show()
+  ###
 
   # Change selection, direction with each clue
   Deps.autorun =>

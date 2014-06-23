@@ -2,7 +2,7 @@
 @text-size: 24px;
 @input-ratio: 1;
 @input-border: 10px;
-@face-size: 50px;
+@face-size: 30px;
 @clue-height: 12px;
 
 @active-color: #279cff;
@@ -43,6 +43,7 @@
     font-family: sans-serif;
     border: 1px solid #bbb;
     position: relative;
+    box-sizing: content-box;
   }
 
   .guess {
@@ -83,14 +84,23 @@
 }
 
 .head {
-
   position: absolute;
+  margin-left: -@face-size * 3/4;
+  margin-top: -@face-size * 3/4;
 
   img {
     width: @face-size;
     height: @face-size;
     .rounded-corners(@face-size);
   }
+}
+
+.clueBox {
+  position: absolute;
+  border: 2px solid red;
+  width: 100px;
+  height: 200px;
+  margin: 1px;
 }
 
 
