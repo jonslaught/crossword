@@ -36,7 +36,7 @@ Template.positions.rendered = ->
       clue = puzzle.clue(d.clueId)
       start = findBlock(clue?.start)
       end = findBlock(clue?.end)
-      d3.select(@).transition().duration(SPEED).style
+      d3.select(@).interrupt().transition().duration(SPEED).style
         'top': bounds(start).top + 'px'
         'left': bounds(start).left + 'px'
         'height': bounds(end).top - bounds(start).top + bounds(start).height + 1 + 'px'
@@ -49,6 +49,6 @@ Template.positions.rendered = ->
     .select('.head').attr('src', (d) -> Meteor.users.findOne(d.userId)?.profile?.picture or 'http://ts2.mm.bing.net/th?q=squirrel&w=50&h=50&c=1&pid=1.7&mkt=en-US&adlt=off&t=1')
   inputs
     .style 'border-color', (d, i) -> boxColor(i)
-    .transition().duration(SPEED)
+    .interrupt().transition().duration(SPEED)
     .style 'top', (d) -> bounds(findBlock(d.blockIndex)).top + 'px'
     .style 'left', (d) -> bounds(findBlock(d.blockIndex)).left + 'px'
