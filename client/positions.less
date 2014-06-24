@@ -3,27 +3,13 @@
 
 // Position tracking
 
-.head {
-  position: absolute;
-  margin-top: -@face-size/2;
-  margin-left: 15px;
-  z-index: 20;
-
-  img {
-    width: @face-size;
-    height: @face-size;
-    .rounded-corners(@face-size);
-    border: 1px solid white;
-  }
-}
-
-.clueBox {
+.active-clue {
   position: absolute;
   opacity: .2;
   margin: 1px;
 }
 
-.input {
+.active-box {
   position: absolute;
   width: @square * @input-ratio;
   height: @square * @input-ratio;
@@ -31,4 +17,14 @@
   border: 2px solid;
   margin: -1px;
   box-sizing: content-box;
+
+  .head {
+    margin-top: -@face-size/2;
+    margin-left: 15px;
+    z-index: 20;
+    width: @face-size;
+    height: @face-size;
+    .rounded-corners(@face-size);
+  }
+
 }
