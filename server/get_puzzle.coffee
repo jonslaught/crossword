@@ -33,12 +33,22 @@ createGrid = (puzzle) ->
       _id: c.clueNum + direction
     }
 
-
   clues = (clue(c, ACROSS) for c in data.clues.A).concat (clue(c, DOWN) for c in data.clues.D)
 
   for clue in clues
-    c = coordinates[clue.start]
-    rows[c.y][c.x].clue = clue.number
+    start = coordinates[clue.start]
+    end = coordinates[clue.end]
+    if clue.direction == ACROSS
+      y = start.y
+      for x in [ start.x .. end.x ]
+        rows[y][x].clueAcross = clue
+
+    if clue.direction == DOWN
+      x = coordinates[clue.start].x
+      for y in [ start.y .. end.y ]
+        rows[y][x].clueDown = clue
+
+    rows[start.y][start.x].clueNumber = clue.number
 
   return Puzzles.insert
     coordinates: coordinates
@@ -50,4 +60,5 @@ createGrid = (puzzle) ->
 Meteor.startup ->
   Guesses.remove({})
   Puzzles.remove({})
+  Positions.remove({})
   createGrid(wed)

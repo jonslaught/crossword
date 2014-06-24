@@ -8,8 +8,7 @@ Template.clues.cluesDown = ->
   _.where p.clues, {'direction': DOWN}
 
 Template.clues.events
-  'click .clue': ->
-    Session.set('currentClue', @)
+  'click .clue': -> moveToClue(@)
 
 Template.currentClue.clue = ->
   Session.get('currentClue')
@@ -24,13 +23,16 @@ Template.clues.created = ->
     c = findCurrentClue()
     if c[0] then $('.scrollable').scrollTo(c)
 
+  Deps.autorun =>
+    updateClueOnMove()
+
 @findClue = (clue) -> $("[data-clue-id=#{ clue?._id }]")
 @findCurrentClue = -> findClue(Session.get('currentClue'))
    
 @moveToClue = (clue) ->
   Session.set('currentClue', clue)
-  Session.set('currentBlockIndex', c.start)
-  Session.set('currentDirection', c.direction)
+  Session.set('currentBlockIndex', clue.start)
+  Session.set('currentDirection', clue.direction)
 
 @toNextClue = ->
   p = Puzzle.current()
@@ -41,6 +43,10 @@ Template.clues.created = ->
   next = p.clues[i+1]
   if next? then moveToClue(next)
     
-Deps.autorun ->
-  log 'current clue', Puzzle.current()?.currentClue()
-  log 'current direction', Session.get('currentDirection')
+@updateClueOnMove = ->
+
+  if b = Puzzle.current().currentBlock()
+    if Session.get('currentDirection') == ACROSS
+      Session.set('currentClue', b.clueAcross)
+    if Session.get('currentDirection') == DOWN
+      Session.set('currentClue', b.clueDown)

@@ -60,24 +60,7 @@ Template.block.events
 
 Template.grid.created = ->
 
-  # Change selection, direction with each clue
-  Deps.autorun =>
-    p = @data
-    if c = p.currentClue()
-      Session.set('currentBlockIndex', c.start)
-      Session.set('currentDirection', c.direction)
-
-  ###
-  # Change clue with each move
-  Deps.autorun =>
-    #todo speed this up, and catch stuff that's in between numbers, and zoom to selected clue
-    #also, needs to only change clue if you move out of the current clue
-    p = @data
-    c = _.where(p.clues, {start: Session.get('currentBlockIndex')})?[0]
-    Session.set('currentClue', c)
-  ###
-
-  # Detect key presses, i.e. arrows
+  # Detect key presses
   $(document).keydown (event) =>
 
     p = @data

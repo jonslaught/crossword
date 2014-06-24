@@ -1,0 +1,19 @@
+<template name="puzzle">
+  <div id="puzzle" class="container">
+  {{#with puzzle}}
+    <div id="currentClue">
+      {{> currentClue}}
+    </div>
+
+    <div class="row">
+      <div id="grid" class="col-md-7">
+        {{> grid}}
+      </div>
+
+      <div id="clues" class="col-md-5">
+        {{>clues}}
+      </div>
+    </div>
+  {{/with}}
+  </div>
+</template>

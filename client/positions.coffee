@@ -17,7 +17,7 @@ Template.positions.rendered = ->
 
 @showPositions = (template, puzzle) ->
 
-  SPEED = 100;
+  SPEED = 0;
 
   positions = Positions.find({puzzleId: puzzle._id}).fetch()
   for p in positions
