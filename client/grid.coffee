@@ -67,7 +67,18 @@ Template.grid.created = ->
     d = Session.get('currentDirection')
     key = event.which
 
-    # Arrow keys
+    # Change direction
+    if (key == 37 or key == 39) and Session.get('currentDirection') != ACROSS
+      Session.set('currentDirection', ACROSS)
+      event.preventDefault()
+      return false
+    
+    if (key == 38 or key == 40) and Session.get('currentDirection') != DOWN
+      Session.set('currentDirection', DOWN)
+      event.preventDefault()
+      return false
+
+    # Move
     if 37 <= key <= 40
       event.preventDefault()
       return moveToNext(key, true)
