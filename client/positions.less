@@ -1,16 +1,19 @@
 @import (reference) "shared.less";
+@face-size: 30px;
 
 // Position tracking
 
 .head {
   position: absolute;
-  margin-left: -@face-size * 3/4;
-  margin-top: -@face-size * 3/4;
+  margin-top: -@face-size/2;
+  margin-left: 15px;
+  z-index: 20;
 
   img {
     width: @face-size;
     height: @face-size;
     .rounded-corners(@face-size);
+    border: 1px solid white;
   }
 }
 

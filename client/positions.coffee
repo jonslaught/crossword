@@ -7,23 +7,26 @@ Template.positions.rendered = ->
       showPositions(@, p)
 
 @trackPosition = (puzzle) ->
+  b = Session.get('currentBlockIndex') 
+  c = Session.get('currentClue')?._id
+  if b? and c?
     p = Positions.upsert
       puzzleId: puzzle._id
       userId: Meteor.userId()
     ,
       $set:
-        blockIndex: Session.get('currentBlockIndex')
-        clueId: Session.get('currentClue')?._id
+        blockIndex: b
+        clueId: c
 
 @showPositions = (template, puzzle) ->
 
-  SPEED = 0;
+  SPEED = 200;
 
   positions = Positions.find({puzzleId: puzzle._id}).fetch()
   for p in positions
     p.block = puzzle.block(p.blockIndex)
 
-  if false # disable heads for now
+  if true # disable heads for now
     heads = d3.select(template.find('.heads')).selectAll('.head').data(positions)
     heads.enter().append('div').attr('class','head').html("<img src='' />")
     heads.exit().remove()
