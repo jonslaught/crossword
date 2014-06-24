@@ -1,0 +1,29 @@
+@import (reference) "shared.less";
+
+// Position tracking
+
+.head {
+  position: absolute;
+  margin-left: -@face-size * 3/4;
+  margin-top: -@face-size * 3/4;
+
+  img {
+    width: @face-size;
+    height: @face-size;
+    .rounded-corners(@face-size);
+  }
+}
+
+.clueBox {
+  position: absolute;
+  opacity: .2;
+  margin: 1px;
+}
+
+.input {
+  margin: 1px;
+  position: absolute;
+  width: @square * @input-ratio;
+  height: @square * @input-ratio;
+  border: 2px solid;
+}

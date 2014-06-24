@@ -1,19 +1,4 @@
-@square: 40px;
-@text-size: 24px;
-@input-ratio: 1;
-@input-border: 10px;
-@face-size: 30px;
-@clue-height: 12px;
-
-@active-color: #279cff;
-
-.rounded-corners (@radius: 5px) {
-  -webkit-border-radius: @radius;
-  -moz-border-radius: @radius;
-  -ms-border-radius: @radius;
-  -o-border-radius: @radius;
-  border-radius: @radius;
-}
+@import (reference) "shared.less";
 
 #grid {
 
@@ -22,21 +7,6 @@
 
   table {
       border: 1px solid black;
-  }
-
-  #input {
-    position: absolute;
-    width: @square * @input-ratio;
-    height: @square * @input-ratio;
-    left: @square * (1-@input-ratio)/2;
-    top: @square * (1-@input-ratio)/2;
-    //line-height: @square * @input-ratio;
-    line-height: @text-size;
-
-    background-color: @active-color;
-    color: white;
-    padding-top: @clue-height;
-    z-index: 100;
   }
 
   .block {
@@ -81,32 +51,4 @@
     border: 1px solid black;
   }
 
-}
-
-.head {
-  position: absolute;
-  margin-left: -@face-size * 3/4;
-  margin-top: -@face-size * 3/4;
-
-  img {
-    width: @face-size;
-    height: @face-size;
-    .rounded-corners(@face-size);
-  }
-}
-
-.clueBox {
-  position: absolute;
-  opacity: .2;
-  margin: 1px;
-}
-
-
-#header, #header * {
-  z-index: 2000;
-}
-
-body {
-  height: 100%;
-  padding: 5%;
 }

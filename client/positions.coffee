@@ -1,8 +1,3 @@
-
-Template.input.guess = ->
-  g = getLatestGuess(Session.get('currentBlockIndex'))
-
-
 Template.positions.rendered = ->
   if p = @data
     Deps.autorun =>
@@ -22,7 +17,7 @@ Template.positions.rendered = ->
 
 @showPositions = (template, puzzle) ->
 
-  SPEED = 200;
+  SPEED = 100;
 
   positions = Positions.find({puzzleId: puzzle._id}).fetch()
   for p in positions
@@ -43,15 +38,21 @@ Template.positions.rendered = ->
   boxes.exit().remove()
   boxes
     .style 'background-color', (d, i) -> boxColor(i)
-    .transition().duration(SPEED)
     .each (d) ->
       clue = puzzle.clue(d.clueId)
       start = findBlock(clue?.start)
       end = findBlock(clue?.end)
-      d3.select(@).style
+      d3.select(@).transition().duration(SPEED).style
         'top': bounds(start).top + 'px'
         'left': bounds(start).left + 'px'
         'height': bounds(end).top - bounds(start).top + bounds(start).height + 1 + 'px'
         'width': bounds(end).left - bounds(start).left + bounds(start).width + 1 + 'px'
 
   inputs = d3.select(template.find('.inputs')).selectAll('.input').data(positions)
+  inputs.enter().append('div').attr('class','input letter')
+  inputs.exit().remove()
+  inputs
+    .style 'border-color', (d, i) -> boxColor(i)
+    .transition().duration(SPEED)
+    .style 'top', (d) -> bounds(findBlock(d.blockIndex)).top + 'px'
+    .style 'left', (d) -> bounds(findBlock(d.blockIndex)).left + 'px'
