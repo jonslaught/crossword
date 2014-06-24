@@ -1,10 +1,3 @@
-Session.setDefault('currentDirection', ACROSS)
-
-Template.puzzle.puzzle = ->
-  p = Puzzles.findOne()
-  Session.set('currentPuzzleId', p?._id)
-  Session.set('currentClue', p?.clues[0])
-  return p
 
 Template.clues.cluesAcross = ->
   p = Puzzle.current()
@@ -25,18 +18,19 @@ Template.clue.selected = ->
   c = Session.get('currentClue')
   @number == c?.number and @direction == c?.direction
 
-@findClue = (clue) -> $("[data-clue-id=#{ clue?._id }]")
-@findCurrentClue = -> findClue(Session.get('currentClue'))
-@visibleInContainer = (elt, container) ->
-  eltRect = $(elt).get(0).getBoundingClientRect()
-  containerRect = $(container).get(0).getBoundingClientRect()
-  eltRect.top >= containerRect.top and eltRect.bottom <= containerRect.bottom
-
 Template.clues.created = ->
+  # Keep current clue in view
   Deps.autorun =>
     c = findCurrentClue()
-    if c[0] and not visibleInContainer(c, $('.scrollable'))
-      $('.scrollable').scrollTo(c)
+    if c[0] then $('.scrollable').scrollTo(c)
+
+@findClue = (clue) -> $("[data-clue-id=#{ clue?._id }]")
+@findCurrentClue = -> findClue(Session.get('currentClue'))
+   
+@moveToClue = (clue) ->
+  Session.set('currentClue', clue)
+  Session.set('currentBlockIndex', c.start)
+  Session.set('currentDirection', c.direction)
 
 @toNextClue = ->
   p = Puzzle.current()
@@ -44,12 +38,9 @@ Template.clues.created = ->
   i = _.findIndex p.clues,
     number: c.number
     direction: Session.get('currentDirection')
-  
-  log p.clues[i+1]
-  if p.clues[i+1]?
-    Session.set('currentClue', p.clues[i+1])
-    #Session.set('currentDirection', p.clues[i+1].direction)
-
+  next = p.clues[i+1]
+  if next? then moveToClue(next)
+    
 Deps.autorun ->
   log 'current clue', Puzzle.current()?.currentClue()
   log 'current direction', Session.get('currentDirection')

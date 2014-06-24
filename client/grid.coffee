@@ -1,11 +1,5 @@
-Template.block.events
-  'click .target': (event, template) ->
-    Session.set('currentBlockIndex', @index)
-
 @findBlock = (blockIndex) -> $("[data-block-index=#{ blockIndex }]")
 @findCurrentBlock = -> findBlock(Session.get('currentBlockIndex'))
-
-
 @moveToNextBlock = ->
   p = Puzzle.current()
   b = p.currentBlock()
@@ -53,17 +47,18 @@ Template.block.events
       Session.set 'currentBlockIndex', p.block(x, y).index
       return false
 
+# Blocks
+
 Template.block.guess = ->
   g = getLatestGuess(@index)
 
-Template.grid.created = ->
+Template.block.events
+  'click .target': (event, template) ->
+    Session.set('currentBlockIndex', @index)
 
-  ###
-  # Keep the input box in sync with the selected block
-  Deps.autorun =>
-      $('#input').detach().appendTo(findCurrentBlock())
-      $('#input').show()
-  ###
+# Grid setup
+
+Template.grid.created = ->
 
   # Change selection, direction with each clue
   Deps.autorun =>
