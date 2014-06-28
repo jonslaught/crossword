@@ -19,7 +19,8 @@
 
 <template name="block">
   <div class="clue">{{ clueNumber }}</div>
-  <div class="guess">
+  <div class="answer guess">{{ answer }}</div>
+  <div class="guess {{checked}}">
     {{#if guess}}{{ guess.guess }}{{/if}}
   </div>
   <div class="target"></div>

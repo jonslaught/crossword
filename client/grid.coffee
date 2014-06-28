@@ -52,6 +52,19 @@
 Template.block.guess = ->
   g = getLatestGuess(@index)
 
+
+Template.block.checked = ->
+
+  g = getLatestGuess(@index)
+  t = Session.get('checkTime')
+
+  if g? and t? and g.time < t
+    if g.guess == @answer 
+      return "right"
+    else
+      return "wrong" 
+    
+
 Template.block.events
   'click .target': (event, template) ->
     Session.set('currentBlockIndex', @index)
