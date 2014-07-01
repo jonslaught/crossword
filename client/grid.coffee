@@ -20,7 +20,8 @@
   p = Puzzle.current()
   b = p.currentBlock()
 
-  [x, y] = [b.x, b.y]
+  x = b.x
+  y = b.y
 
   left = -> x -= 1
   right = -> x += 1

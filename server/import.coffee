@@ -1,10 +1,10 @@
 @rows = []
 @coordinates = []
 
-createGrid = (puzzle) ->
+puzzleFromJSON = (json) ->
 
-  meta = puzzle.results[0].puzzle_meta
-  data = puzzle.results[0].puzzle_data
+  meta = json.results[0].puzzle_meta
+  data = json.results[0].puzzle_data
 
   height = meta.height
   width = meta.width
@@ -57,8 +57,11 @@ createGrid = (puzzle) ->
     width: width
     clues: clues
 
-Meteor.startup ->
+reset = ->
   Guesses.remove({})
   Puzzles.remove({})
   Positions.remove({})
-  createGrid(wed)
+
+Meteor.startup ->
+  
+  createGrid(wed_6_25)
