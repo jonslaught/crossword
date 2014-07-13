@@ -77,7 +77,7 @@ Template.grid.created = ->
   # Detect key presses
   $(document).keydown (event) =>
 
-    p = @data
+    p = Puzzle.current()
     d = Session.get('currentDirection')
     key = event.which
 

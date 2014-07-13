@@ -1,6 +1,5 @@
 <template name="puzzle">
-  <div id="puzzle" class="container">
-  {{#with puzzle}}
+  <div id="puzzle">
     <div id="currentClue" class="hidden">
       {{> currentClue}}
     </div>
@@ -14,23 +13,27 @@
         {{>clues}}
       </div>
     </div>
-  {{/with}}
   </div>
 </template>
 
 <template name="header">
   <nav id="header" class="navbar navbar-default navbar-fixed-top login-popover-left">
      <div class="container">
-      <a class="navbar-brand" href="#">Crossword!</a>
-      <ul class="nav navbar-nav">
-        <li><a href="/puzzles">Puzzles</a></li>
-        <li><a id="check">Check</a></li>
-        <li><a id="reveal">Reveal</a></li>
-      </ul>
-      <div class="navbar-button">
+        <a class="navbar-brand" href="#">Crossword!</a>
         <ul class="nav navbar-nav">
-          <li>{{ loginButtons }}</li>
+          <li><a href="{{pathFor 'listing'}}">Puzzles</a></li>
+          <li><a id="check">Check</a></li>
+          <li><a id="reveal">Reveal</a></li>
         </ul>
+        <div class="navbar-button">
+          <ul class="nav navbar-nav">
+            <li>{{> loginButtons }}</li>
+          </ul>
+        </div>
       </div>
     </nav>
+</template>
+
+<template name="room">
+  {{> puzzle}}
 </template>

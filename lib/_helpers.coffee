@@ -27,3 +27,10 @@ _.extend Meteor.Collection.prototype,
   upsert: (selector, modifier) ->
     doc = @findOrInsert(selector)
     @update doc._id, modifier
+    return @findOne(doc._id)
+
+UI.registerHelper "formatDate", (date, format) ->
+  if date? and format?
+    date = moment(date)
+    date.lang('en')
+    date.format(format)

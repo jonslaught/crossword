@@ -1,11 +1,11 @@
 
 Template.clues.cluesAcross = ->
-  p = Puzzle.current()
-  _.where p.clues, {'direction': ACROSS}
+  if p = Puzzle.current()
+    _.where p.clues, {'direction': ACROSS}
 
 Template.clues.cluesDown = ->
-  p = Puzzle.current()
-  _.where p.clues, {'direction': DOWN}
+  if p = Puzzle.current()
+    _.where p.clues, {'direction': DOWN}
 
 Template.clues.events
   'click .clue': -> moveToClue(@)
@@ -45,7 +45,7 @@ Template.clues.created = ->
     
 @updateClueOnMove = ->
 
-  if b = Puzzle.current().currentBlock()
+  if b = Puzzle.current()?.currentBlock()
     if Session.get('currentDirection') == ACROSS
       Session.set('currentClue', b.clueAcross)
     if Session.get('currentDirection') == DOWN

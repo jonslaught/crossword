@@ -1,5 +1,6 @@
 <template name="grid">
   <table>
+  <tbody>
   {{#each grid}}
     <tr>
       {{#each this}}
@@ -13,6 +14,7 @@
       {{/each}}
     </tr>
   {{/each}}
+  </tbody>
   </table>
   {{>positions}}
 </template>

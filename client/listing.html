@@ -1,0 +1,47 @@
+<template name="listing">
+<div class="listing">
+  <h2>All Puzzles</h2>
+  <p><a class="btn btn-default" href="{{pathFor 'uploader'}}">Upload</a> <b>Another day</b></p>
+
+  {{#each puzzles}}
+    {{>listing_puzzle}}
+  {{/each}}
+</div>
+</template>
+
+
+<template name="listing_puzzle">
+  <p>
+    {{#if grid}}
+      <a class="btn btn-primary play" href="{{pathFor 'puzzle'}}">Play</a>
+    {{else}}
+      <a class="btn btn-default" href="{{pathFor 'uploader'}}">Upload</a>
+    {{/if}}
+
+    <b>{{day}}</b> {{formatDate date "MMMM Do YYYY"}}
+    
+  </p>
+</template>
+
+
+<template name="uploader">
+
+  <form role="form">
+    <div class="form-group">
+      <label>Choose a date</label>
+      <div class="input-group date date-picker">
+        <input type="text" class="form-control" value="{{ nyt_date }}"><span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+      </div>
+    </div>
+    <div class="form-group nyt-json">
+      <label>Copy this code</label>
+      <iframe class="form-control"></iframe>
+    </div>
+    <div class="form-group">
+      <label>Paste it in here</label>
+      <textarea class="form-control copied-json"></textarea>
+    </div>
+    <a class="btn btn-primary upload">Upload</a>
+  </form>
+
+</template>

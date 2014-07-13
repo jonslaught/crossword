@@ -4,9 +4,11 @@
   <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap-theme.min.css">
 </head>
 
-<body>
+<template name="master">
 
-  {{> header }}
+    {{> header }}
 
-  {{> puzzle }}
-</body>
+    <div class="container">
+      {{> yield }}
+    </div>
+</template>

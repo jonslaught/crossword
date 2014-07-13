@@ -1,12 +1,14 @@
 Template.positions.rendered = ->
-  if p = @data
-    Deps.autorun =>
-      trackPosition(p)
+  Deps.autorun =>
+    trackPosition()
 
-    Deps.autorun =>
-      showPositions(@, p)
+  Deps.autorun =>
+    showPositions(@)
 
-@trackPosition = (puzzle) ->
+@trackPosition = ->
+  puzzle = Puzzle.current()
+  if not puzzle? then return
+
   b = Session.get('currentBlockIndex') 
   c = Session.get('currentClue')?._id
   if b? and c?
@@ -18,7 +20,10 @@ Template.positions.rendered = ->
         blockIndex: b
         clueId: c
 
-@showPositions = (template, puzzle) ->
+@showPositions = (template) ->
+
+  puzzle = Puzzle.current()
+  if not puzzle? then return
 
   SPEED = 200;
 

@@ -1,0 +1,23 @@
+Strategy:
+
+- If you have a NYT account, you can host a "room"
+
+- The room loads in a puzzle client-side, using your cookies
+- If you don't have the cookie, it warns you saying "sorry, you need an NYT account. log in here!" --> could even pop up a thingy
+
+- The puzzle gets inserted server side, so anyone who joins the room can play now
+- There's a unique ID of the puzzle in the URL. Anyone you send that to can play with you.
+
+- The host sees a listing of
+  
+  Date
+  Day of week
+  Completed?
+  Puzzle metadata? - do a one time scrape
+
+  Organized by
+
+  In progresss (ie active rooms), with resume buttons
+  Latest (just list 50 for now), with completed ones shaded
+  Filter by day
+  Type in a date box

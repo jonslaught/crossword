@@ -6,7 +6,6 @@
 standard-app-packages
 autopublish
 insecure
-preserve-inputs
 coffeescript
 less
 accounts-facebook
@@ -15,3 +14,6 @@ service-configuration
 accounts-password
 accounts-google
 lodash
+iron-router
+moment
+http

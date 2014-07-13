@@ -12,6 +12,9 @@
 
 @Positions = new Meteor.Collection "positions"
 
+
+@Rooms = new Meteor.Collection "rooms"
+
 class @Puzzle
   constructor: (doc) ->
     _.extend(@, doc)
@@ -43,6 +46,9 @@ class @Puzzle
       blockIndex: Session.get('currentBlockIndex')
       guess: guess
       time: new Date()
+
+  getDate: ->
+    moment(new Date(@nyt_date  + " 12:00:00"))
 
   @current: ->
     Puzzles.findOne Session.get('currentPuzzleId')
