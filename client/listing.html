@@ -7,6 +7,22 @@
     {{>listing_puzzle}}
   {{/each}}
 </div>
+
+<div id="uploader-modal" class="modal fade">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Import a puzzle</h4>
+      </div>
+      <div class="modal-body">
+        {{>uploader}}
+      </div>
+    </div>
+  </div>
+</div>
+
+
 </template>
 
 
@@ -15,7 +31,7 @@
     {{#if grid}}
       <a class="btn btn-primary play" href="{{pathFor 'puzzle'}}">Play</a>
     {{else}}
-      <a class="btn btn-default" href="{{pathFor 'uploader'}}">Upload</a>
+      <a class="btn btn-default upload-button">Upload</a>
     {{/if}}
 
     <b>{{day}}</b> {{formatDate date "MMMM Do YYYY"}}
