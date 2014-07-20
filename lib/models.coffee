@@ -15,6 +15,17 @@
 @Positions = new Meteor.Collection "positions"
 
 
+if Meteor.isServer
+  Meteor.publish 'puzzle', (id) ->
+    return [
+      Puzzles.find(id),
+      Guesses.find({puzzleId: id}),
+      Positions.find({puzzleId: id})
+    ]
+
+  Meteor.publish 'puzzles', ->
+    return Puzzles.find()
+
 @Rooms = new Meteor.Collection "rooms"
 
 class @Puzzle

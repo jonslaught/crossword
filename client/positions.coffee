@@ -6,19 +6,18 @@ Template.positions.rendered = ->
     showPositions(@)
 
 @trackPosition = ->
-  puzzle = Puzzle.current()
-  if not puzzle? then return
-
-  b = Session.get('currentBlockIndex') 
-  c = Session.get('currentClue')?._id
-  if b? and c?
-    p = Positions.upsert
-      puzzleId: puzzle._id
-      userId: Meteor.userId()
-    ,
-      $set:
-        blockIndex: b
-        clueId: c
+  if Session.get('loadedPuzzle')
+    puzzle = Puzzle.current()
+    b = Session.get('currentBlockIndex') 
+    c = Session.get('currentClue')?._id
+    if b? and c? and puzzle?
+      p = Positions.upsert
+        puzzleId: puzzle._id
+        userId: Meteor.userId()
+      ,
+        $set:
+          blockIndex: b
+          clueId: c
 
 @showPositions = (template) ->
 

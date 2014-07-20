@@ -2,6 +2,7 @@
 
 Session.setDefault('currentDirection', ACROSS)
 Session.setDefault('currentMarker', PEN)
+Session.setDefault('loadedPuzzle', false)
 
 Template.header.events
   'click #reveal': ->
