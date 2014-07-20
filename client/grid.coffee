@@ -100,6 +100,16 @@ Template.grid.created = ->
       event.preventDefault()
       return moveToNext(key, true)
 
+    # Shift+arrows for next/prev clue
+    if (key == 37 or key == 38) and event.shiftKey
+      event.preventDefault()
+      toPrevClue()
+      return false
+    if (key == 39 or key == 40) and event.shiftKey
+      event.preventDefault()
+      toNextClue()
+      return false
+
     # Backspace or delete
     if key == 8 or key == 46
       event.preventDefault()
