@@ -18,7 +18,7 @@ Template.currentClue.clue = ->
 
 Template.clue.selected = ->
   c = Session.get('currentClue')
-  @number == c?.number and @direction == c?.direction
+  @name == c?.name
 
 Template.clues.created = ->
   # Keep current clue in view
@@ -38,10 +38,14 @@ Template.clues.created = ->
   Session.set('currentDirection', clue.direction)
 
 @toNextClue = ->
-  p = Puzzle.current()
   c = Session.get('currentClue')
   next = Clues.findOne({name: c.next})
   if next? then moveToClue(next)
+
+@toPrevClue = ->
+  c = Session.get('currentClue')
+  prev = Clues.findOne({name: c.prev})
+  if prev? then moveToClue(prev)
     
 @updateClueOnMove = ->
   if b = Puzzle.current()?.currentBlock()

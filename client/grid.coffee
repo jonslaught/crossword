@@ -96,7 +96,7 @@ Template.grid.created = ->
       return false
 
     # Move
-    if 37 <= key <= 40
+    if 37 <= key <= 40 and not event.shiftKey
       event.preventDefault()
       return moveToNext(key, true)
 
@@ -107,16 +107,28 @@ Template.grid.created = ->
       return moveToNext(d, false, true)
 
     # Tab, enter
-    if key == 9 or key == 13
+    if (key == 9 or key == 13) and not event.shiftKey
       event.preventDefault()
       toNextClue()
       return false
 
+    # Shift-Tab
+    if (key == 9 or key == 13) and event.shiftKey
+      event.preventDefault()
+      toPrevClue()
+      return false
+
     # Letters
-    if 65 <= key <= 90
+    if (65 <= key <= 90) and not event.metaKey
       #event.preventDefault()
       letter = String.fromCharCode(key)
       p.makeGuess(letter)
       return moveToNext(d, false)
+
+    # Ctrl-Z
+    if key == 90 and event.metaKey
+      event.preventDefault()
+      Puzzle.current().undoGuess()
+      return false
 
     return true
