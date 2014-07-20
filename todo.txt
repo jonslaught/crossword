@@ -4,8 +4,6 @@ Instead of big list of clues, show each head and their clue.
 
 Cross off clues that are answered
 
-Jump over guessed letters
-
 Chatroom
 - For each clue
 - Global, aggregating all of them like ("> 5 across, Jon says _____")

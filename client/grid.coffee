@@ -12,8 +12,9 @@
     sort:
       time: -1
       
-@moveToNext = (direction, jumpOverBlacks, reverse) ->
+@moveToNext = (direction, jumpOverBlacks, reverse, jumpOverGuessed) ->
 
+  jumpOverGuessed ?= false
   jumpOverBlacks ?= true
   reverse ?= false
 
@@ -46,6 +47,8 @@
       if not p.block(x, y).white and not jumpOverBlacks # black block, stay
         Session.set 'currentBlockIndex', b.index
         return false
+      if jumpOverGuessed and getLatestGuess(p.block(x, y).index)? # guess, jump over it
+        continue
       if p.block(x, y).white # white block, keep it
         Session.set 'currentBlockIndex', p.block(x, y).index
         return false
@@ -133,7 +136,7 @@ Template.grid.created = ->
       #event.preventDefault()
       letter = String.fromCharCode(key)
       p.makeGuess(letter)
-      return moveToNext(d, false)
+      return moveToNext(d, false, false, true)
 
     # Ctrl-Z
     if key == 90 and event.metaKey
