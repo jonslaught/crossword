@@ -68,27 +68,52 @@
       end: c.clueEnd
       number: c.clueNum
       text: c.value
-      _id: c.clueNum + direction
+      name: c.clueNum + direction
     }
 
-  p.clues = (clue(c, ACROSS) for c in data.clues.A).concat (clue(c, DOWN) for c in data.clues.D)
+  clues = (clue(c, ACROSS) for c in data.clues.A).concat (clue(c, DOWN) for c in data.clues.D)
 
   # Attach clues to grid
 
-  for clue in p.clues
+  for clue in clues
     start = p.coordinates[clue.start]
     end = p.coordinates[clue.end]
     if clue.direction == ACROSS
       y = start.y
       for x in [ start.x .. end.x ]
-        p.grid[y][x].clueAcross = clue
+        p.grid[y][x].clueAcross = clue.name
 
     if clue.direction == DOWN
       x = start.x
       for y in [ start.y .. end.y ]
-        p.grid[y][x].clueDown = clue
+        p.grid[y][x].clueDown = clue.name
 
     p.grid[start.y][start.x].clueNumber = clue.number
 
   # Insert the puzzle and return it
-  Puzzles.upsert {nyt_id: p.nyt_id}, p
+  p = Puzzles.upsert {nyt_id: p.nyt_id}, p
+  if Clues.find({puzzleId: p._id}).count() == 0
+    
+    lastClue = _.last(clues)
+
+    for clue, i in clues
+      clue.puzzleId = p._id
+
+      # If it's the last clue, the next one is the first
+      if clue.name == lastClue.name
+        clue.next = clues[0].name
+        clue.prev = clues[i-1].name
+      
+      # If it's the first clue, the previous one is the last
+      else if i == 0
+        clue.next = clues[i+1].name
+        clue.prev = lastClue.name
+
+      # Otherwise, it's just the next one
+      else
+        clue.next = clues[i+1].name
+        clue.prev = clues[i-1].name
+
+      Clues.insert clue
+
+  return p

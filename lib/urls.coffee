@@ -17,10 +17,9 @@ Router.map ->
   this.route 'puzzle',
     path: '/puzzle/:_id'
     onData: ->
-
       p = Puzzles.findOne(@params._id)
-      Session.set('currentPuzzleId', p?._id)
-      Session.set('currentClue', p?.clues[0])
+      Session.set('currentPuzzleId', p._id)
+      Session.set('currentClue', Clues.findOne({puzzleId: p._id}))
 
     waitOn: ->
       Meteor.subscribe 'puzzle', @params._id, ->

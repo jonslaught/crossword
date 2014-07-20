@@ -1,11 +1,14 @@
 
 Template.clues.cluesAcross = ->
-  if p = Puzzle.current()
-    _.where p.clues, {'direction': ACROSS}
+  Clues.find
+    puzzleId: Session.get('currentPuzzleId')
+    direction: ACROSS
+
 
 Template.clues.cluesDown = ->
-  if p = Puzzle.current()
-    _.where p.clues, {'direction': DOWN}
+  Clues.find
+    puzzleId: Session.get('currentPuzzleId')
+    direction: DOWN
 
 Template.clues.events
   'click .clue': -> moveToClue(@)
@@ -37,16 +40,12 @@ Template.clues.created = ->
 @toNextClue = ->
   p = Puzzle.current()
   c = Session.get('currentClue')
-  i = _.findIndex p.clues,
-    number: c.number
-    direction: Session.get('currentDirection')
-  next = p.clues[i+1]
+  next = Clues.findOne({name: c.next})
   if next? then moveToClue(next)
     
 @updateClueOnMove = ->
-
   if b = Puzzle.current()?.currentBlock()
     if Session.get('currentDirection') == ACROSS
-      Session.set('currentClue', b.clueAcross)
+      Session.set('currentClue', Clues.findOne({name: b.clueAcross}))
     if Session.get('currentDirection') == DOWN
-      Session.set('currentClue', b.clueDown)
+      Session.set('currentClue', Clues.findOne({name: b.clueDown}))

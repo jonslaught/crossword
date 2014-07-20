@@ -37,7 +37,7 @@ Template.positions.rendered = ->
   boxes
     .style 'background-color', (d, i) -> boxColor(i)
     .each (d) ->
-      clue = puzzle.clue(d.clueId)
+      clue = Clues.findOne(d.clueId)
       start = findBlock(clue?.start)
       end = findBlock(clue?.end)
       d3.select(@).interrupt().transition().duration(SPEED).style
