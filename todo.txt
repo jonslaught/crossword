@@ -8,8 +8,6 @@ Undo button?
 
 Cross off clues that are answered
 
-Pencil mode
-
 Jump over guessed letters
 
 Chatroom

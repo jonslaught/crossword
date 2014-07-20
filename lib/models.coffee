@@ -1,6 +1,8 @@
 @ACROSS = 'A'
 @DOWN = 'D'
 
+@PEN = 'pen'
+@PENCIL = 'pencil'
 
 @Puzzles = new Meteor.Collection "puzzles",
   transform: (doc) ->
@@ -47,6 +49,7 @@ class @Puzzle
     ,
       $set:
         guess: guess
+        markerType: Session.get('currentMarker')
         time: new Date()
 
   getDate: ->

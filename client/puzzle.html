@@ -24,11 +24,17 @@
 <template name="header">
   <nav id="header" class="navbar navbar-default navbar-fixed-top login-popover-left">
      <div class="container">
-        <a class="navbar-brand" href="#">Crossword!</a>
+        <a class="navbar-brand" href="{{pathFor 'listing'}}"><i class="fa fa-puzzle-piece"></i> Crossword!</a>
         <ul class="nav navbar-nav">
-          <li><a href="{{pathFor 'listing'}}">Puzzles</a></li>
-          <li><a id="check">Check</a></li>
-          <li><a id="reveal">Reveal</a></li>
+          <li>
+            <button id="check" class="btn btn-default navbar-btn comfy-right"><i class="fa fa-check-square-o"></i> Check</button>
+          </li>
+          <li>
+            <button id="reveal" class="btn btn-default navbar-btn comfy-right"><i class="fa fa-magic"></i> Reveal</button>
+          </li>
+          <li class="btn-group">
+            <button id="pencil" class="btn navbar-btn comfy-right {{#if pencilMode}}btn-primary{{else}}btn-default{{/if}}"><i class="fa fa-pencil"></i> Pencil</button>
+          </li>
         </ul>
         <div class="navbar-button">
           <ul class="nav navbar-nav">
