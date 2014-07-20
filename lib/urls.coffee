@@ -15,7 +15,9 @@ Router.map ->
     onData: ->
       p = Puzzles.findOne(@params._id)
       Session.set('currentPuzzleId', p._id)
-      Session.set('currentClue', Clues.findOne({puzzleId: p._id}))
+      c = Clues.findOne({puzzleId: p._id})
+      Session.set('currentClue', c)
+      moveToClue(c)
     waitOn: ->
       Meteor.subscribe 'puzzle', @params._id, ->
         Session.set('loadedPuzzle', true)

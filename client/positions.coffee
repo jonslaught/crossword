@@ -1,9 +1,21 @@
+@bounds = (elt) ->
+  p = $(elt).position()
+  return {
+    top: p.top
+    left: p.left
+    right: p.left + $(elt).width()
+    bottom: p.top + $(elt).height() 
+    height: $(elt).height()
+    width: $(elt).width()
+  }
+
 Template.positions.rendered = ->
   Deps.autorun =>
     trackPosition()
 
   Deps.autorun =>
-    showPositions(@)
+    if Session.get('blocksRendered')
+      showPositions()
 
 @trackPosition = ->
   if Session.get('loadedPuzzle')
@@ -19,7 +31,7 @@ Template.positions.rendered = ->
           blockIndex: b
           clueId: c
 
-@showPositions = (template) ->
+@showPositions = ->
 
   puzzle = Puzzle.current()
   if not puzzle? then return
@@ -31,7 +43,7 @@ Template.positions.rendered = ->
     p.block = puzzle.block(p.blockIndex)
 
   boxColor = d3.scale.category10()
-  boxes = d3.select(template.find('.active-clues')).selectAll('.active-clue').data(positions)
+  boxes = d3.select('.active-clues').selectAll('.active-clue').data(positions)
   boxes.enter().append('div').attr('class','active-clue')
   boxes.exit().remove()
   boxes
@@ -46,7 +58,7 @@ Template.positions.rendered = ->
         'height': bounds(end).top - bounds(start).top + bounds(start).height + 1 + 'px'
         'width': bounds(end).left - bounds(start).left + bounds(start).width + 1 + 'px'
 
-  inputs = d3.select(template.find('.active-boxes')).selectAll('.active-box').data(positions)
+  inputs = d3.select('.active-boxes').selectAll('.active-box').data(positions)
   inputs.enter().append('div').attr('class','active-box').html("<img class='head' src='' />")
   inputs.exit().remove()
   inputs

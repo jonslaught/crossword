@@ -70,14 +70,17 @@ Template.block.checked = ->
     else
       return "wrong" 
     
-
 Template.block.events
   'click .target': (event, template) ->
     Session.set('currentBlockIndex', @index)
 
-# Grid setup
+Template.block.rendered = ->
+  Session.set('blocksRendered', true)
 
+# Grid setup
 Template.grid.created = ->
+
+  Session.set('blocksRendered', false)
 
   # Detect key presses
   $(document).off 'keydown'
@@ -136,7 +139,7 @@ Template.grid.created = ->
       #event.preventDefault()
       letter = String.fromCharCode(key)
       p.makeGuess(letter)
-      return moveToNext(d, false, false, true)
+      return moveToNext(d, false, false, false) # disabling jumping guesses for now cuz it's buggy
 
     # Ctrl-Z
     if key == 90 and event.metaKey
