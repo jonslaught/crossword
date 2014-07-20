@@ -43,6 +43,8 @@ class @Puzzle
     Session.get('currentClue')
 
   makeGuess: (guess) ->
+    
+    ###
     Guesses.upsert
       puzzleId: @_id
       blockIndex: Session.get('currentBlockIndex')
@@ -51,6 +53,24 @@ class @Puzzle
         guess: guess
         markerType: Session.get('currentMarker')
         time: new Date()
+    ###
+
+    Guesses.insert
+      puzzleId: @_id
+      blockIndex: Session.get('currentBlockIndex')
+      userId: Meteor.userId()
+      guess: guess
+      markerType: Session.get('currentMarker')
+      time: new Date()
+
+  undoGuess: ->
+    g = Guesses.findOne
+      userId: Meteor.userId()
+    ,
+      sort:
+        time: -1
+    if g?
+      Guesses.remove g._id
 
   getDate: ->
     moment(new Date(@nyt_date  + " 12:00:00"))

@@ -4,8 +4,6 @@ Instead of big list of clues, show each head and their clue.
 
 Shift to go to next/previous clues. Shift-Tab, Shift-Up, Shift-Down.
 
-Undo button?
-
 Cross off clues that are answered
 
 Jump over guessed letters

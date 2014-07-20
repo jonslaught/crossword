@@ -16,6 +16,9 @@ Template.header.events
     else
       Session.set('currentMarker', PEN)
 
+  'click #undo': ->
+    Puzzle.current().undoGuess()
+
 Template.puzzle.date = ->
   Puzzle.current()?.getDate()
 
