@@ -1,0 +1,24 @@
+
+
+Instead of big list of clues, show each head and their clue.
+
+Shift to go to next/previous clues. Shift-Tab, Shift-Up, Shift-Down.
+
+Undo button?
+
+Cross off clues that are answered
+
+Pencil mode
+
+Jump over guessed letters
+
+Chatroom
+- For each clue
+- Global, aggregating all of them like ("> 5 across, Jon says _____")
+
+
+
+Bugs
+----
+Lag from two windows by same person (bounces around)
+Kill extra squirrels on refresh (maybe no squirrels allowed? or not shared across?)

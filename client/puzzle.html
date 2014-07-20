@@ -1,7 +1,8 @@
 <template name="puzzle">
   <div id="puzzle">
     <div class="title">
-      <h1>{{day}} <small> {{formatDate date "MMMM Do YYYY"}}</small></h1>
+      <h1>{{day}} <small> {{formatDate date "MMMM Do YYYY"}} {{#if title}}"{{title}}"{{/if}}</small></h1>
+      {{#if note}}<p>{{note}}</p>{{/if}}
     </div>
 
     <div id="currentClue">
