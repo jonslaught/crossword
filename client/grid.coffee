@@ -75,6 +75,7 @@ Template.block.events
 Template.grid.created = ->
 
   # Detect key presses
+  $(document).off 'keydown'
   $(document).keydown (event) =>
 
     p = Puzzle.current()
