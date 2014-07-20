@@ -20,33 +20,35 @@
   p = Puzzle.current()
   b = p.currentBlock()
 
-  x = b.x
-  y = b.y
+  if b? and p?
 
-  left = -> x -= 1
-  right = -> x += 1
-  up = -> y -= 1
-  down = -> y += 1
+    x = b.x
+    y = b.y
 
-  move = switch direction
-    when 37 then left
-    when 38 then up
-    when 39 then right
-    when 40 then down
-    when ACROSS then (if reverse then left else right)
-    when DOWN then (if reverse then up else down)
+    left = -> x -= 1
+    right = -> x += 1
+    up = -> y -= 1
+    down = -> y += 1
 
-  loop
-    move()
-    if x < 0 or y < 0 or x >= p.width or y >= p.height # edge, go back
-      Session.set 'currentBlockIndex', b.index
-      return false
-    if not p.block(x, y).white and not jumpOverBlacks # black block, stay
-      Session.set 'currentBlockIndex', b.index
-      return false
-    if p.block(x, y).white # white block, keep it
-      Session.set 'currentBlockIndex', p.block(x, y).index
-      return false
+    move = switch direction
+      when 37 then left
+      when 38 then up
+      when 39 then right
+      when 40 then down
+      when ACROSS then (if reverse then left else right)
+      when DOWN then (if reverse then up else down)
+
+    loop
+      move()
+      if x < 0 or y < 0 or x >= p.width or y >= p.height # edge, go back
+        Session.set 'currentBlockIndex', b.index
+        return false
+      if not p.block(x, y).white and not jumpOverBlacks # black block, stay
+        Session.set 'currentBlockIndex', b.index
+        return false
+      if p.block(x, y).white # white block, keep it
+        Session.set 'currentBlockIndex', p.block(x, y).index
+        return false
 
 # Blocks
 
