@@ -1,6 +1,10 @@
 <template name="puzzle">
   <div id="puzzle">
-    <div id="currentClue" class="hidden">
+    <div class="title">
+      <h1>{{day}} <small> {{formatDate date "MMMM Do YYYY"}}</small></h1>
+    </div>
+
+    <div id="currentClue">
       {{> currentClue}}
     </div>
 

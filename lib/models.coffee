@@ -41,11 +41,13 @@ class @Puzzle
     Session.get('currentClue')
 
   makeGuess: (guess) ->
-    Guesses.insert
+    Guesses.upsert
       puzzleId: @_id
       blockIndex: Session.get('currentBlockIndex')
-      guess: guess
-      time: new Date()
+    ,
+      $set:
+        guess: guess
+        time: new Date()
 
   getDate: ->
     moment(new Date(@nyt_date  + " 12:00:00"))
