@@ -37,3 +37,20 @@
     <td class="number">{{ number }}</td><td class="text">{{{ text }}}</td>
   </tr>
 </template>
+
+<template name="peoplesClues">
+
+  {{#each users}}
+    <div class="pull-left">
+      <img src={{icon}} class="head" />
+    </div>
+
+    <h2>{{ name }}</h2>
+
+    {{> clue }}
+
+
+
+  {{/each}}
+
+</template>

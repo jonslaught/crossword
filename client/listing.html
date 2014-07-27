@@ -1,7 +1,7 @@
 <template name="listing">
 <div class="listing">
   <h2>All Puzzles</h2>
-  <p><a class="btn btn-default" href="{{pathFor 'uploader'}}">Upload</a> <b>Another day</b></p>
+  <p><a class="btn btn-default upload-button">Upload</a> <b>Another day</b></p>
 
   {{#each puzzles}}
     {{>listing_puzzle}}
